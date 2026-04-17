@@ -30,21 +30,35 @@ When this command is invoked:
 
 If the user passed text after the command, treat it as the initial scene description.
 
-If no scene description was passed, ask for it first.
+**Use AskUserQuestion for every missing piece of information — never silently apply defaults for choices the user should make.**
 
-Do not require the user to provide script-style flags up front.
+#### 1a — Scene description
+If no scene description was passed, use AskUserQuestion to ask for it before doing anything else.
 
-Use these defaults unless the user asks for something else or the project structure makes them clearly wrong:
+#### 1b — Generation mode
+Always use AskUserQuestion to ask the user which mode they want:
+
+> "How would you like to generate the media?
+>
+> **A — Manual (free):** I'll write the three prompts (start image, end image, video motion). You paste them into any free tool you choose and drop the output files into `output/`. Free options:
+> - Images: Ideogram, Adobe Firefly, Leonardo AI, or DALL-E 3 via ChatGPT (all have free tiers)
+> - Video: RunwayML Gen-3, Kling AI, Pika, or Luma Dream Machine (all have free tiers)
+>
+> **B — Provider (automated):** I'll call a connected API to generate everything automatically. Requires API keys and may incur cost."
+
+Wait for the user's answer before proceeding. Set `generation_mode` to `manual` or `provider` based on their choice.
+
+#### 1c — Silent defaults (no need to ask)
+Apply these without prompting unless the project structure makes them clearly wrong:
 
 - project root: current working directory
-- generation mode: manual
 - fps: 30
 - duration: 4 seconds
 - canvas id: `image-sequence`
 - frames destination: `public/images/sequenceforge`
 - target hint: `hero`
 
-If the target project structure makes the default frames destination clearly unsuitable, ask the user for the preferred destination path.
+If the frames destination is clearly unsuitable for this project, use AskUserQuestion to confirm the preferred path.
 
 ### Step 2 — Write the prompts
 
@@ -63,16 +77,22 @@ Wait for user approval before generating or requesting media.
 
 ### Step 3 — Generate or receive media
 
-If the user explicitly asks for provider mode, invoke `sequenceforge-generate`.
+Branch on the `generation_mode` chosen in Step 1b.
 
-Otherwise use the manual path:
+#### Manual path
+Show the user the three prompts clearly (start image, end image, video motion). Then tell them:
 
-- show the user the three prompts
-- tell them to save the outputs to:
-  - `output/frame-first.png`
-  - `output/frame-last.png`
-  - `output/video.mp4`
-- wait for the files to exist before proceeding
+> "Paste each prompt into your chosen tool, save the outputs, and drop them here:
+> - `output/frame-first.png` — your start image
+> - `output/frame-last.png` — your end image
+> - `output/video.mp4` — your motion video
+>
+> Let me know when all three files are in place and I'll continue."
+
+Wait — do not proceed until the user confirms the files exist.
+
+#### Provider path
+Invoke `sequenceforge-generate` to call the connected API and produce all three files automatically. Report the result before continuing.
 
 ### Step 4 — Extract the frame sequence
 
