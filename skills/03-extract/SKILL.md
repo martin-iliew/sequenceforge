@@ -47,14 +47,16 @@ Install:
 
 ## Step 4 — Run extract_frames.py
 
+**IMPORTANT:** `extract_frames.py` lives in the plugin, not in the user's project. The skill system provides the plugin's base directory at the top of this skill's output as `Base directory for this skill: <path>`. Use that path to build the full script path — never look for it in the project root.
+
 ```bash
-python scripts/extract_frames.py \
-  --input output/video.mp4 \
-  --dest <destination> \
+python "<plugin_base_dir>/scripts/extract_frames.py" \
+  --input "<project_root>/output/video.mp4" \
+  --dest "<project_root>/<destination>" \
   [--fps <fps>]
 ```
 
-Include `--fps` only if the user specified it. Omitting it extracts at the video's native frame rate.
+Use absolute paths for both `--input` and `--dest`. Include `--fps` only if the user specified it. Omitting it extracts at the video's native frame rate.
 
 Frames are saved as lossless PNG (`-compression_level 0`) — no compression artifacts, no flicker between consecutive frames in the scroll sequence.
 
