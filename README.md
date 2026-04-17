@@ -28,13 +28,13 @@ claude
 Run the command:
 
 ```text
-/sequenceforge:forge-squance
+/sequenceforge:forge-sequence
 ```
 
 Or start with a scene description:
 
 ```text
-/sequenceforge:forge-squance "premium watch reveal from silhouette to dial detail"
+/sequenceforge:forge-sequence "premium watch reveal from silhouette to dial detail"
 ```
 
 Then just answer the questions. You do not need to remember flags.
@@ -56,7 +56,7 @@ If the command does not appear immediately, run:
 
 ## What You Get
 
-By default `/sequenceforge:forge-squance` will:
+By default `/sequenceforge:forge-sequence` will:
 
 - use the current project as the project root
 - use manual media mode unless you ask for provider mode
@@ -65,18 +65,18 @@ By default `/sequenceforge:forge-squance` will:
 
 ## Command Reference
 
-### `/sequenceforge:forge-squance`
+### `/sequenceforge:forge-sequence`
 
 ```text
-/sequenceforge:forge-squance
-/sequenceforge:forge-squance "<scene description>"
+/sequenceforge:forge-sequence
+/sequenceforge:forge-sequence "<scene description>"
 ```
 
 Examples:
 
 ```text
-/sequenceforge:forge-squance
-/sequenceforge:forge-squance "camera dives through cloud layers into a shoe close-up"
+/sequenceforge:forge-sequence
+/sequenceforge:forge-sequence "camera dives through cloud layers into a shoe close-up"
 ```
 
 The command runs the full 01→06 workflow:

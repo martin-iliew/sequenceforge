@@ -2,7 +2,7 @@
 description: Start the full SequenceForge workflow and ask for any missing details step by step.
 ---
 
-# /forge-squance
+# /forge-sequence
 
 Start the full SequenceForge workflow from Phase 01 through Phase 06.
 
@@ -11,15 +11,15 @@ The user should be able to run this command with no flags. If details are missin
 ## Usage
 
 ```text
-/forge-squance
-/forge-squance "<scene description>"
+/forge-sequence
+/forge-sequence "<scene description>"
 ```
 
 ## Examples
 
 ```text
-/forge-squance
-/forge-squance "premium watch reveal from silhouette to dial detail"
+/forge-sequence
+/forge-sequence "premium watch reveal from silhouette to dial detail"
 ```
 
 ## Instructions for Claude

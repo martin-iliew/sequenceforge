@@ -26,9 +26,7 @@
     "veo",
     "google-ai"
   ],
-  "commands": [
-    "./commands/forge-squance.md"
-  ],
+  "commands": ["./commands/forge-sequence.md"],
   "skills": [
     "./skills/01-spec",
     "./skills/02-generate",
