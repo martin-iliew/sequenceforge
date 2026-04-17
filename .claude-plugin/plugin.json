@@ -1,0 +1,40 @@
+{
+  "name": "sequenceforge",
+  "version": "0.3.0",
+  "description": "SequenceForge is a framework-agnostic GSAP image-sequence plugin. It writes start-image, end-image, and video prompts from a plain-text scene description, supports hybrid manual or provider-driven media generation, extracts numbered PNG frames with ffmpeg, inspects an existing GSAP project, and generates a framework-aware canvas/ScrollTrigger integration blueprint for vanilla, React/Next, Vue/Nuxt, and Svelte/SvelteKit projects.",
+  "author": {
+    "name": "Martin Iliew",
+    "url": "https://github.com/martin-iliew"
+  },
+  "homepage": "https://github.com/martin-iliew/sequenceforge",
+  "repository": "https://github.com/martin-iliew/sequenceforge",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "video-generation",
+    "frame-extraction",
+    "scroll-animation",
+    "gsap",
+    "scrolltrigger",
+    "framework-agnostic",
+    "react",
+    "vue",
+    "svelte",
+    "google-flow",
+    "imagen",
+    "veo",
+    "google-ai"
+  ],
+  "commands": [
+    "./commands/forge-frames.md",
+    "./commands/forge-sequence.md"
+  ],
+  "skills": [
+    "./skills/01-spec",
+    "./skills/02-generate",
+    "./skills/03-extract",
+    "./skills/04-inspect",
+    "./skills/05-integrate"
+  ]
+}

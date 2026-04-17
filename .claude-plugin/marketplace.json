@@ -1,0 +1,33 @@
+{
+  "name": "sequenceforge-market",
+  "owner": {
+    "name": "Martin Iliew"
+  },
+  "metadata": {
+    "description": "Public marketplace for the SequenceForge Claude Code plugin.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "sequenceforge",
+      "source": "./",
+      "description": "Framework-agnostic GSAP image-sequence plugin for prompt writing, frame extraction, project inspection, and integration.",
+      "version": "0.3.0",
+      "author": {
+        "name": "Martin Iliew",
+        "url": "https://github.com/martin-iliew"
+      },
+      "homepage": "https://github.com/martin-iliew/sequenceforge",
+      "repository": "https://github.com/martin-iliew/sequenceforge",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "plugin",
+        "gsap",
+        "scrolltrigger",
+        "image-sequence",
+        "video-generation"
+      ]
+    }
+  ]
+}
