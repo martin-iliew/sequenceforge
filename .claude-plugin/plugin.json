@@ -27,8 +27,7 @@
     "google-ai"
   ],
   "commands": [
-    "./commands/forge-frames.md",
-    "./commands/forge-sequence.md"
+    "./commands/forge-squance.md"
   ],
   "skills": [
     "./skills/01-spec",

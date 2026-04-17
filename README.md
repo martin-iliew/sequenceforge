@@ -59,86 +59,58 @@ cd /path/to/your-project
 claude
 ```
 
-### 2. Choose the workflow
+### 2. Run the single command
 
-Use `forge-frames` if you only want prompt writing plus frame extraction.
-
-Use `forge-sequence` if you also want SequenceForge to inspect the current project and update it with an image-sequence integration.
-
-Installed plugin commands are namespaced, so run them as:
-
-- `/sequenceforge:forge-frames`
-- `/sequenceforge:forge-sequence`
-
-## Workflow A: Media Only
-
-Generate the prompt pack and a scroll-ready frame sequence:
+Installed plugin commands are namespaced. SequenceForge now has one public command:
 
 ```text
-/sequenceforge:forge-frames "premium watch reveal from silhouette to dial detail" --dest public/images/watch-frames --mode manual
+/sequenceforge:forge-squance
 ```
 
-What happens:
-
-1. SequenceForge writes the creative brief and saves `output/frame-spec.yaml`.
-2. In `--mode manual`, Claude shows you the prompts and waits for you to save:
-   - `output/frame-first.png`
-   - `output/frame-last.png`
-   - `output/video.mp4`
-3. SequenceForge extracts numbered PNGs into your `--dest` folder.
-
-Use provider mode if you want the Google provider workflow:
+You can also start it with a scene description:
 
 ```text
-/sequenceforge:forge-frames "sunrise over a calm ocean, camera slowly pulling back" --dest public/images/ocean-frames --mode provider --fps 24
+/sequenceforge:forge-squance "premium watch reveal from silhouette to dial detail"
 ```
 
-## Workflow B: Full Project Integration
+### 3. Answer the questions
 
-Run the full pipeline against the project Claude is currently open in:
+The command starts the whole workflow and asks for any missing details itself.
 
-```text
-/sequenceforge:forge-sequence "camera dives through cloud layers into a shoe close-up" --project-root . --target "home hero" --dest public/images/feature-frames --mode manual
-```
+You do not need to remember flags for project root, target section, output path, or setup prompts.
 
-What happens:
+By default the command will:
 
-1. SequenceForge writes and reviews the prompt set.
-2. It waits for your manual media files, or generates them in provider mode.
-3. It extracts PNG frames to the destination folder.
-4. It inspects the target project to find the best integration point.
-5. It builds and applies the image-sequence integration directly in the target project.
-6. It reports which files changed and where the GSAP sequence was inserted.
+- use the current project as the project root
+- use manual media mode unless you ask for provider mode
+- write frames to `public/images/sequenceforge`
+- inspect the project and ask you to choose a target section if the match is ambiguous
 
-Use `--project-root .` when Claude is already open in the target project.
+## What The Command Does
+
+`/sequenceforge:forge-squance` runs the full SequenceForge flow:
+
+1. Phase 01: writes the prompt set
+2. Phase 02: asks for or generates the media
+3. Phase 03: extracts the PNG frame sequence
+4. Phase 04: inspects the target project
+5. Phase 05: plans the integration
+6. Phase 06: applies the integration and reports the changed files
 
 ## Command Reference
 
-### `/sequenceforge:forge-frames`
+### `/sequenceforge:forge-squance`
 
 ```text
-/sequenceforge:forge-frames "<scene description>" [--dest <path>] [--mode manual|provider] [--fps <number>]
+/sequenceforge:forge-squance
+/sequenceforge:forge-squance "<scene description>"
 ```
 
 Examples:
 
 ```text
-/sequenceforge:forge-frames "a cinematic descent from mountain peak to forest floor"
-/sequenceforge:forge-frames "premium watch product reveal, dark editorial studio" --dest public/images/hero-frames
-/sequenceforge:forge-frames "sunrise over a calm ocean, camera slowly pulling back" --fps 24 --mode provider
-```
-
-### `/sequenceforge:forge-sequence`
-
-```text
-/sequenceforge:forge-sequence "<scene description>" --project-root <path> --target "<page or section hint>" --dest <path> [--mode manual|provider] [--fps <number>] [--duration <seconds>] [--canvas-id <id>]
-```
-
-Examples:
-
-```text
-/sequenceforge:forge-sequence "premium watch reveal from silhouette to dial detail" --project-root . --target "home hero" --dest public/images/watch-sequence
-/sequenceforge:forge-sequence "camera dives through cloud layers into a shoe close-up" --project-root . --target "product feature section" --dest public/images/feature --mode provider
+/sequenceforge:forge-squance
+/sequenceforge:forge-squance "camera dives through cloud layers into a shoe close-up"
 ```
 
 ## Files SequenceForge Writes
