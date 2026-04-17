@@ -36,15 +36,10 @@ If the user passed text after the command, treat it as the initial scene descrip
 If no scene description was passed, use AskUserQuestion to ask for it before doing anything else.
 
 #### 1b — Generation mode
-Always use AskUserQuestion to ask the user which mode they want:
+Always use AskUserQuestion to ask the user which mode they want, with these two options:
 
-> "How would you like to generate the media?
->
-> **A — Manual (free):** I'll write the three prompts (start image, end image, video motion). You paste them into any free tool you choose and drop the output files into `output/`. Free options:
-> - Images: Ideogram, Adobe Firefly, Leonardo AI, or DALL-E 3 via ChatGPT (all have free tiers)
-> - Video: RunwayML Gen-3, Kling AI, Pika, or Luma Dream Machine (all have free tiers)
->
-> **B — Provider (automated):** I'll call a connected API to generate everything automatically. Requires API keys and may incur cost."
+- **A — Manual with Google Flow (recommended):** I'll write the three prompts. Paste the image prompts into Google Flow (flow.google) to generate start/end images with Imagen 4, then generate the transition video with Veo — both are built into Flow for free. Alternative free tools: images via Ideogram, Adobe Firefly, or Leonardo AI; video via RunwayML Gen-3, Kling AI, or Pika.
+- **B — Provider (automated):** I'll call the Google Imagen 4 + Veo API directly to generate everything. Requires `GOOGLE_CLOUD_PROJECT` and `GOOGLE_APPLICATION_CREDENTIALS` configured, and may incur cost.
 
 Wait for the user's answer before proceeding. Set `generation_mode` to `manual` or `provider` based on their choice.
 
@@ -62,7 +57,7 @@ If the frames destination is clearly unsuitable for this project, use AskUserQue
 
 ### Step 2 — Write the prompts
 
-Invoke the `sequenceforge-spec` skill with the scene description.
+Invoke the `sequenceforge-spec` skill with the scene description. The skill owns the full setup flow — it will auto-detect the framework and ask any missing setup questions before writing the brief.
 
 This must produce:
 
@@ -70,8 +65,6 @@ This must produce:
 - an end-image prompt
 - a video-motion prompt
 - `output/frame-spec.yaml`
-
-Before prompt generation, if `docs/design/project-setup.yaml` is missing or incomplete, use the setup questions already defined by the skill and save the answers there.
 
 Wait for user approval before generating or requesting media.
 
@@ -82,10 +75,12 @@ Branch on the `generation_mode` chosen in Step 1b.
 #### Manual path
 Show the user the three prompts clearly (start image, end image, video motion). Then tell them:
 
-> "Paste each prompt into your chosen tool, save the outputs, and drop them here:
-> - `output/frame-first.png` — your start image
-> - `output/frame-last.png` — your end image
-> - `output/video.mp4` — your motion video
+> "Paste each prompt into your chosen tool and drop the output files here:
+> - `output/frame-first.png` — start image (Frame 01 prompt → Google Flow / Imagen, Ideogram, Firefly, etc.)
+> - `output/frame-last.png` — end image (Frame 02 prompt → same tool)
+> - `output/video.mp4` — motion video (Transition prompt → Google Flow / Veo, RunwayML Gen-3, Kling AI, etc.)
+>
+> In Google Flow: generate both images first, then use the video tab with Veo — you can set the start and end frames directly.
 >
 > Let me know when all three files are in place and I'll continue."
 

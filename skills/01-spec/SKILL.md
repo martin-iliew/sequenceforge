@@ -13,29 +13,37 @@ This is a thinking and writing task only. No API calls.
 
 ## Step 1 — Gather project setup once
 
+### 1a — Auto-detect framework
+
+Before asking the user anything, try to detect the framework by reading `package.json` in the project root:
+
+- `dependencies` or `devDependencies` contains `react`, `next`, or `@next/core-web-vitals` → `framework: React`
+- contains `vue`, `nuxt`, or `@nuxt/` → `framework: Vue`
+- contains `svelte` or `@sveltejs/` → `framework: Svelte`
+- `package.json` does not exist or none of the above match → `framework: Vanilla`
+
+If `package.json` is unreadable or genuinely ambiguous (e.g. both React and Vue present), set `framework: Unknown` and add it as a question in Step 1b.
+
+### 1b — Collect remaining setup fields
+
 If `docs/design/project-setup.yaml` is missing, or any of these fields are missing:
 
-- `framework`
 - `visual_tone`
 - `motion_intensity`
 - `motion_appetite`
-- `motion_no_go`
 - `must_have_motion`
 - `color_direction`
-- `constraints`
 
-use the `AskUserQuestion` tool to ask all questions in a single call, then save the answers to `docs/design/project-setup.yaml`.
+use the `AskUserQuestion` tool to ask all questions **in a single call**, then save all answers — including the auto-detected `framework` — to `docs/design/project-setup.yaml`.
 
-Ask:
+Ask these four questions (if `framework` is Unknown, swap out the Color direction question and ask framework instead, then ask color direction in a second call):
 
-1. **Framework** — React or Vue?
-2. **Visual tone** — Clean/minimal · Bold/editorial · Warm/organic · Tech/precise
-3. **Motion intensity** — Subtle · Moderate · Bold · Cinematic
-4. **Motion appetite** — Restrained · Expressive · Showcase
-6. **Must-have motion** — Pinned section and image sequence · Image sequence without pinning · Text reveal support 
-7. **Color direction** — Brand colors as-is · Warm it up · Cool it down · Dark mode leaning
+1. **Visual tone** — Clean/minimal · Bold/editorial · Warm/organic · Tech/precise
+2. **Motion intensity** — Subtle · Moderate · Bold · Cinematic
+3. **Must-have motion** — Pinned section and image sequence · Image sequence without pinning · Text reveal support
+4. **Color direction** — Brand colors as-is · Warm it up · Cool it down · Dark mode leaning
 
-On a resume run where `project-setup.yaml` already contains all eight fields, skip this step entirely.
+On a resume run where `project-setup.yaml` already contains all fields, skip this step entirely.
 
 Use the answers to shape:
 - the prompt tone for Frame 01 and Frame 02
