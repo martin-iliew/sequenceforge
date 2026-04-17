@@ -200,6 +200,13 @@ Validate before publishing:
 claude plugin validate .
 ```
 
+Test the marketplace from a local checkout:
+
+```bash
+claude plugin marketplace add ./ --scope local
+claude plugin install sequenceforge@sequenceforge-market --scope local
+```
+
 Create the GitHub repo and push:
 
 ```bash
